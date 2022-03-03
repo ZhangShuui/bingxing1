@@ -33,7 +33,7 @@ int main()
             countit(i);
             QueryPerformanceCounter((LARGE_INTEGER*)&end);
         }
-        cout<<i<<","<<counter<<","<<double (end-start)/double (freq)/(double)counter<<endl;
+        cout<<i<<","<<counter<<","<<double (end-start)/ double (freq)<<","<<double (end-start)/double (freq)/(double)counter<<endl;
         if (i==100)
             step=100;
     }
