@@ -1,5 +1,3 @@
-#include <stdio.h>
-#include <time.h>
 #include <windows.h>
 #include <iostream>
 using namespace std;
@@ -25,18 +23,20 @@ int main()
     }
     int step=10;
     for(int i=10;i<1000;i+=step){
-        clock_t start,end;
-        start=clock();
+        long long start,end,freq;
         int counter=0;
-        while(clock()-start<10){
+        QueryPerformanceFrequency((LARGE_INTEGER*)&freq);
+        QueryPerformanceCounter((LARGE_INTEGER*)&start);
+        QueryPerformanceCounter((LARGE_INTEGER*)&end);
+        while(end-start<100000){
             counter++;
             countit(i);
+            QueryPerformanceCounter((LARGE_INTEGER*)&end);
         }
-        end=clock();
-        float seconds=(end-start)/float(CLOCKS_PER_SEC);
-        cout<<i<<" "<<counter<<" "<<float (seconds/counter)<<endl;
+        cout<<i<<" "<<counter<<" "<<double (end-start)/double (freq)/(double)counter<<endl;
         if (i==100)
             step=100;
     }
+
     return 0;
 }
