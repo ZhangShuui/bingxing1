@@ -1,4 +1,4 @@
-#include <windows.h>
+#include <time.h>
 #include <iostream>
 using namespace std;
 double a[1000];
@@ -23,15 +23,12 @@ int main()
     }
     int step=10;
     for(int i=10;i<1000;i+=step){
-        long long start,end,freq;
+        int  start=clock(),end=clock(),freq=CLOCKS_PER_SEC;
         int counter=0;
-        QueryPerformanceFrequency((LARGE_INTEGER*)&freq);
-        QueryPerformanceCounter((LARGE_INTEGER*)&start);
-        QueryPerformanceCounter((LARGE_INTEGER*)&end);
-        while(end-start<100000){
+        while(end-start<10){
             counter++;
             countit(i);
-            QueryPerformanceCounter((LARGE_INTEGER*)&end);
+            end=clock();
         }
         cout<<i<<","<<counter<<","<<double (end-start)/ double (freq)<<","<<double (end-start)/double (freq)/(double)counter<<endl;
         if (i==100)
